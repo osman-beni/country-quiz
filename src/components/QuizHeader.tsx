@@ -4,7 +4,7 @@ import styled from "styled-components";
 function QuizHeader() {
   return (
     <QuizHeaderContainer>
-      <h1>Country Quiz</h1>
+      <Title>Country Quiz</Title>
       <TotalPoints>🏆 1/10 Points</TotalPoints>
     </QuizHeaderContainer>
   );
@@ -17,9 +17,14 @@ const QuizHeaderContainer = styled.header`
   align-items: center;
 `;
 
+const Title = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 600;
+`;
+
 const TotalPoints = styled.p`
   background-image: linear-gradient(to right, #e65895, #bc6be8);
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1rem;
   margin: 0;
   font-size: 0.875rem;
   border-radius: 16px;

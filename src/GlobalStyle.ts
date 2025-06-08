@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     background-size: cover;
     font-family: 'Be Vietnam Pro', sans-serif;
+    color: #E2E4F3;
   }
 
   @media (max-width: 600px) {
@@ -40,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
     display: grid;
     place-items: center;
     min-height: 100vh;
-    padding: 1rem;
+    padding: 20px;
   }
 `;
 
