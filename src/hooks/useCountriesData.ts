@@ -8,7 +8,7 @@ export interface Country {
 
 function useCountriesData() {
   const [data, setData] = React.useState<Country[]>([]);
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   console.log(data);
 
@@ -21,7 +21,7 @@ function useCountriesData() {
         if (!response.ok) {
           throw new Error("Failed to fetch countries data");
         }
-        const limitedCountries = (await response.json()).slice(0, 10); // Limit to 10 countries
+        const limitedCountries = await response.json();
         const formattedCountries = limitedCountries.map((country: any) => ({
           name: country.name.common,
           flag: country.flags.svg,
