@@ -1,16 +1,31 @@
 import React from "react";
 
+import type { Question } from "../utils/generateQuestions";
+
 import styled from "styled-components";
 
-function QuestionCard() {
+interface Props {
+  question: Question;
+}
+
+function QuestionCard({ question }: Props) {
+  console.log(question);
   return (
     <Wrapper>
-      <QuestionText>Which country does this flag belong to?</QuestionText>
+      <QuestionText>
+        {question.type === "flag" ? (
+          <>
+            Which country's flag is this{" "}
+            <img style={{ width: 24 }} src={`${question.image}`} />
+          </>
+        ) : (
+          question.prompt
+        )}
+      </QuestionText>
       <Options>
-        <Option>Sweden</Option>
-        <Option>Vietnam</Option>
-        <Option>Finland</Option>
-        <Option>Austria</Option>
+        {question.options.map((option, index) => (
+          <Option key={index}>{option}</Option>
+        ))}
       </Options>
     </Wrapper>
   );

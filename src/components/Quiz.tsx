@@ -5,14 +5,25 @@ import styled from "styled-components";
 import QuizHeader from "./QuizHeader";
 import QuestionNumbers from "./QuestionNumbers";
 import QuestionCard from "./QuestionCard";
+import useCountriesData from "../hooks/useCountriesData";
+import { generateQuestions } from "../utils/generateQuestions";
 
 function Quiz() {
+  const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  const { data, loading } = useCountriesData();
+  const questions = React.useMemo(() => generateQuestions(data), [data]);
+  const selectedQuestion = questions[currentQuestion];
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Wrapper>
       <QuizHeader />
       <QuestionsWrapper>
-        <QuestionNumbers />
-        <QuestionCard />
+        <QuestionNumbers numOfQuestions={questions.length} />
+        <QuestionCard question={selectedQuestion} />
       </QuestionsWrapper>
     </Wrapper>
   );

@@ -3,10 +3,10 @@ import styled from "styled-components";
 
 import { range } from "../utils/range";
 
-function QuestionNumbers() {
+function QuestionNumbers({ numOfQuestions }: { numOfQuestions: number }) {
   return (
     <Wrapper>
-      {range(10).map((num) => (
+      {range(numOfQuestions).map((num) => (
         <Number key={num}>{num}</Number>
       ))}
     </Wrapper>
