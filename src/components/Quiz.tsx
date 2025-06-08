@@ -5,17 +5,20 @@ import styled from "styled-components";
 import QuizHeader from "./QuizHeader";
 import QuestionNumbers from "./QuestionNumbers";
 import QuestionCard from "./QuestionCard";
+import { Wrapper as QuizCompleteWrapper } from "./QuizCompleteCard";
 import useCountriesData from "../hooks/useCountriesData";
 import { generateQuestions } from "../utils/generateQuestions";
+import QuizCompleteCard from "./QuizCompleteCard";
 
 function Quiz() {
   const { data, loading } = useCountriesData();
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
   const [answered, setAnswered] = React.useState(false);
   const [questionKey, setQuestionKey] = React.useState(0); // To force remount
+  const [score, setScore] = React.useState(0); // Track correct answers
   const questions = React.useMemo(() => generateQuestions(data), [data]);
   const selectedQuestion = questions[currentQuestion];
-  console.log(currentQuestion);
+  console.log(selectedQuestion);
 
   React.useEffect(() => {
     if (!answered) return;
@@ -27,41 +30,50 @@ function Quiz() {
     return () => clearTimeout(timeoutId);
   }, [answered]);
 
-  function chosenQuestionHandler() {
+  function chosenQuestionHandler(choice: string) {
     setAnswered(true);
-    // Optionally, you can handle scoring here
+    if (choice === selectedQuestion.answer) {
+      setScore((prev) => prev + 1);
+    }
   }
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  // Optionally, handle end of quiz
-  if (!selectedQuestion) {
-    return <div>Quiz Complete!</div>;
-  }
-
   return (
-    <Wrapper>
-      <QuizHeader />
-      <QuestionsWrapper>
-        <QuestionNumbers
-          numOfQuestions={questions.length}
-          solvedQuestionsNum={currentQuestion}
-        />
-        <QuestionCard
-          key={questionKey}
-          onChoose={chosenQuestionHandler}
-          question={selectedQuestion}
-        />
-      </QuestionsWrapper>
-    </Wrapper>
+    <>
+      {selectedQuestion && (
+        <Wrapper>
+          <QuizHeader score={score} totalQuestions={questions.length} />
+          <QuestionsWrapper>
+            <QuestionNumbers
+              numOfQuestions={questions.length}
+              solvedQuestionsNum={currentQuestion}
+            />
+            <QuestionCard
+              key={questionKey}
+              onChoose={chosenQuestionHandler}
+              question={selectedQuestion}
+            />
+          </QuestionsWrapper>
+        </Wrapper>
+      )}
+      {!selectedQuestion && (
+        <QuizCompleteCard score={score} totalQuestions={questions.length} />
+      )}
+    </>
   );
 }
 
 const Wrapper = styled.div`
   width: 100%;
   max-width: 960px;
+
+  /* &:has(${QuizCompleteWrapper}) {
+    max-width: revert;
+    width: revert;
+  } */
 `;
 
 export const QuestionsWrapper = styled.div`

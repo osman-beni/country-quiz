@@ -1,11 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-function QuizHeader() {
+interface Props {
+  score: number;
+  totalQuestions: number;
+}
+
+function QuizHeader({ score, totalQuestions }: Props) {
   return (
     <QuizHeaderContainer>
       <Title>Country Quiz</Title>
-      <TotalPoints>🏆 1/10 Points</TotalPoints>
+      <TotalPoints>
+        🏆 {score}/{totalQuestions} Points
+      </TotalPoints>
     </QuizHeaderContainer>
   );
 }
