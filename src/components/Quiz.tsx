@@ -5,7 +5,6 @@ import styled from "styled-components";
 import QuizHeader from "./QuizHeader";
 import QuestionNumbers from "./QuestionNumbers";
 import QuestionCard from "./QuestionCard";
-import { Wrapper as QuizCompleteWrapper } from "./QuizCompleteCard";
 import useCountriesData from "../hooks/useCountriesData";
 import { generateQuestions } from "../utils/generateQuestions";
 import QuizCompleteCard from "./QuizCompleteCard";
