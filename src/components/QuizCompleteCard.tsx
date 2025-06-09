@@ -4,17 +4,18 @@ import styled from "styled-components";
 interface Props {
   score: number;
   totalQuestions: number;
+  onRestart?: () => void;
 }
 
-function QuizCompleteCard({ score, totalQuestions }: Props) {
+function QuizCompleteCard({ score, totalQuestions, onRestart }: Props) {
   return (
     <Wrapper>
       <Image src="/congrats.png" />
-      <h2>Congrats! You completed the quiz.</h2>
+      <Title>Congrats! You completed the quiz.</Title>
       <p>
         You answered {score}/{totalQuestions} correctly
       </p>
-      <Button>Play again</Button>
+      <Button onClick={onRestart}>Play again</Button>
     </Wrapper>
   );
 }
@@ -31,6 +32,10 @@ export const Wrapper = styled.div`
   padding: 24px;
   text-align: center;
   max-width: 400px;
+`;
+
+const Title = styled.h2`
+  font-weight: normal;
 `;
 
 const Image = styled.img`

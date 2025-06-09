@@ -22,10 +22,10 @@ function QuestionCard({ question, onChoose }: Props) {
     <Wrapper>
       <QuestionText>
         {question.type === "flag" ? (
-          <>
-            Which country's flag is this{" "}
-            <img style={{ width: 24 }} src={`${question.image}`} />
-          </>
+          <FlagQuestionWrapper>
+            <span>Which country's flag is this</span>
+            <img style={{ width: 48 }} src={`${question.image}`} />
+          </FlagQuestionWrapper>
         ) : (
           question.prompt
         )}
@@ -67,7 +67,18 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
+  margin-top: 32px;
+`;
+
+const FlagQuestionWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  @media (max-width: 600px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const QuestionText = styled.h2`
@@ -96,8 +107,8 @@ const Option = styled.li`
   gap: 12px;
   text-align: center;
   margin: 0;
-  padding: 0 16px;
-  height: 48px;
+  padding: 4px;
+  min-height: 48px;
   line-height: 48px;
   background-color: #393f6e;
   color: #e2e4f3;
@@ -107,6 +118,10 @@ const Option = styled.li`
 
   &:hover {
     background-color: #4a4f8b;
+  }
+
+  @media (min-width: 600px) {
+    padding: 16px;
   }
 `;
 

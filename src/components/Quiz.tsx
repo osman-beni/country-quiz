@@ -18,7 +18,6 @@ function Quiz() {
   const [score, setScore] = React.useState(0); // Track correct answers
   const questions = React.useMemo(() => generateQuestions(data), [data]);
   const selectedQuestion = questions[currentQuestion];
-  console.log(selectedQuestion);
 
   React.useEffect(() => {
     if (!answered) return;
@@ -60,7 +59,16 @@ function Quiz() {
         </Wrapper>
       )}
       {!selectedQuestion && (
-        <QuizCompleteCard score={score} totalQuestions={questions.length} />
+        <QuizCompleteCard
+          score={score}
+          totalQuestions={questions.length}
+          onRestart={() => {
+            setCurrentQuestion(0);
+            setAnswered(false);
+            setQuestionKey(0);
+            setScore(0);
+          }}
+        />
       )}
     </>
   );
@@ -69,11 +77,6 @@ function Quiz() {
 const Wrapper = styled.div`
   width: 100%;
   max-width: 960px;
-
-  /* &:has(${QuizCompleteWrapper}) {
-    max-width: revert;
-    width: revert;
-  } */
 `;
 
 export const QuestionsWrapper = styled.div`
@@ -84,6 +87,7 @@ export const QuestionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding: 2rem 1rem;
 
   @media (min-width: 600px) {
     padding: 4rem 2rem;
