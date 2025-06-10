@@ -15,7 +15,11 @@ function Quiz() {
   const [answered, setAnswered] = React.useState(false);
   const [questionKey, setQuestionKey] = React.useState(0); // To force remount
   const [score, setScore] = React.useState(0); // Track correct answers
-  const questions = React.useMemo(() => generateQuestions(data), [data]);
+  const [quizSeed, setQuizSeed] = React.useState(Date.now()); // To reset quiz
+  const questions = React.useMemo(
+    () => generateQuestions(data),
+    [data, quizSeed]
+  );
   const selectedQuestion = questions[currentQuestion];
 
   React.useEffect(() => {
@@ -66,6 +70,7 @@ function Quiz() {
             setAnswered(false);
             setQuestionKey(0);
             setScore(0);
+            setQuizSeed(Date.now()); // Reset quiz seed to regenerate questions
           }}
         />
       )}

@@ -48,6 +48,7 @@ function QuestionCard({ question, onChoose }: Props) {
               key={index}
               value={option}
               onClick={() => handleChoose(option)}
+              selected={selected === option}
             >
               <span>{option}</span>
               <Image
@@ -100,7 +101,9 @@ const Options = styled.ul`
   }
 `;
 
-const Option = styled.li`
+const Option = styled.li<{
+  selected?: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,10 +118,8 @@ const Option = styled.li`
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #4a4f8b;
-  }
+  background: ${({ selected }) =>
+    selected ? 'linear-gradient(to right, #e65895, #bc6be8)' : '#393f6e'};
 
   @media (min-width: 600px) {
     padding: 16px;
